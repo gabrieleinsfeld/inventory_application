@@ -16,7 +16,22 @@
           <% }); %>
         </ul>
       </div>
-      <div class="display-youtubers"></div>
+      <div class="display-youtubers">
+        <% youtubers.forEach(function(youtuber) { %>
+        <div class="display">
+          Name: <%= youtuber.youtuber_name %><br />
+          Channel: <%= youtuber.youtuber_channel %><br />
+
+          Followers: <%= youtuber.channel_followers %>
+          <button>
+            <a
+              href="/get/videos/<%= encodeURIComponent(youtuber.youtuber_channel) %>"
+              >See Videos</a
+            >
+          </button>
+        </div>
+        <% }); %>
+      </div>
     </div>
     <div class="button-div">
       <button><a href="/add/youtuber">Add Youtuber</a></button>

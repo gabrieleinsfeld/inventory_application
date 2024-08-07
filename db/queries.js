@@ -1,5 +1,7 @@
 const pool = require("./pool");
 
+// INSERT FUNCTIONS
+// ################
 async function insertYoutuber(
   youtuber_name,
   youtuber_channel,
@@ -27,14 +29,60 @@ async function insertTopic(topic_name) {
   await pool.query("INSERT INTO topics (topic_name) VALUES ($1)", [topic_name]);
 }
 
-async function insertUsername(username) {
-  await pool.query("INSERT INTO usernames (username) VALUES ($1)", [username]);
+async function insertVideo(video_name, youtuber_channel) {
+  await pool.query(
+    "INSERT INTO videos (video_name, youtuber_channel) VALUES ($1, $2)",
+    [video_name, youtuber_channel]
+  );
+}
+
+// GET FUNCTIONS
+// #############
+
+async function getYoutubers() {
+  const { rows } = await pool.query("SELECT * FROM youtubers");
+  return rows;
+}
+
+async function getTopics() {
+  const { rows } = await pool.query("SELECT * FROM topics");
+  return rows;
+}
+
+async function getVideos() {
+  const { rows } = await pool.query("SELECT * FROM videos");
+  return rows;
+}
+
+async function getYoutubersByTopicId(id) {
+  const query = `
+    SELECT * 
+    FROM youtubers
+    JOIN topics ON topics.id = topic_id WHERE topics.id = $1;
+  `;
+  const { rows } = await pool.query(query, [id]);
+  return rows;
+}
+
+async function getVideoByYoutuberName(youtuber_channel) {
+  const query = `
+    SELECT video_name 
+    FROM videos
+    JOIN youtubers ON youtubers.youtuber_channel = videos.youtuber_channel WHERE videos.youtuber_channel LIKE $1;
+  `;
+  const { rows } = await pool.query(query, [youtuber_channel]);
+  return rows;
 }
 
 module.exports = {
-  getAll,
   insertYoutuber,
   insertTopic,
+  insertVideo,
+  getYoutubers,
+  getTopics,
+  getVideos,
+  getYoutubersByTopicId,
+  getVideoByYoutuberName,
 };
 
 // INSERT INTO topics (topic_name) VALUES('Comedy');

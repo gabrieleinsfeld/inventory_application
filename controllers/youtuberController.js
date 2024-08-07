@@ -1,6 +1,6 @@
 const db = require("../db/queries");
 const { body, validationResult } = require("express-validator");
-
+const path = require("node:path");
 const validateYoutuber = [
   body("youtuber_name")
     .trim()
@@ -17,7 +17,11 @@ const validateYoutuber = [
 ];
 
 async function mainFunction(req, res) {
-  res.render("index");
+  const topics = await db.getTopics();
+
+  res.render("index", {
+    topics: topics,
+  });
 }
 
 async function addYoutuberPost(req, res) {
@@ -42,8 +46,20 @@ function addYoutuberGet(req, res) {
   res.render("addYoutuber");
 }
 
+async function getYoutuberByTopic(req, res) {
+  const id = req.params.id;
+  const topics = await db.getTopics();
+  const youtubers = await db.getYoutubersByTopicId(id);
+
+  res.render("viewYoutubers", {
+    youtubers: youtubers,
+    topics: topics,
+  });
+}
+
 module.exports = {
   mainFunction,
   addYoutuberPost: [validateYoutuber, addYoutuberPost],
   addYoutuberGet,
+  getYoutuberByTopic,
 };
