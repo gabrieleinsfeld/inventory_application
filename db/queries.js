@@ -1,17 +1,5 @@
 const pool = require("./pool");
 
-async function getAll() {
-  const query = `
-    SELECT topics.id 
-    FROM topics
-    JOIN youtubers ON topics.id = topic_id WHERE topic_name LIKE $1;
-  `;
-  const { rows } = await pool.query(query, ["HNAJ"]);
-
-  //   const { rows } = await pool.query("SELECT * FROM youtubers");
-  return rows;
-}
-
 async function insertYoutuber(
   youtuber_name,
   youtuber_channel,
@@ -35,6 +23,10 @@ async function insertYoutuber(
   );
 }
 
+async function insertTopic(topic_name) {
+  await pool.query("INSERT INTO topics (topic_name) VALUES ($1)", [topic_name]);
+}
+
 async function insertUsername(username) {
   await pool.query("INSERT INTO usernames (username) VALUES ($1)", [username]);
 }
@@ -42,6 +34,7 @@ async function insertUsername(username) {
 module.exports = {
   getAll,
   insertYoutuber,
+  insertTopic,
 };
 
 // INSERT INTO topics (topic_name) VALUES('Comedy');

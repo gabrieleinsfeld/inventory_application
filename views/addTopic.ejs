@@ -1,5 +1,24 @@
-<form action="/add/topic" method="POST">
-  <label for="topic_name">Topic name:</label>
-  <input type="text" name="topic_name" />
-  <button type="submit">Add Topic</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <% if (locals.errors) {%>
+    <h1><%= title %></h1>
+    <ul>
+      <% errors.forEach(function(error) { %>
+      <li><%= error.msg %></li>
+      <% }); %>
+    </ul>
+    <% } %>
+    <form action="/add/topic" method="POST">
+      <label for="topic_name">Topic name:</label>
+      <input type="text" name="topic_name" />
+      <button type="submit">Add Topic</button>
+    </form>
+    <button><a href="/">Main Page</a></button>
+  </body>
+</html>
