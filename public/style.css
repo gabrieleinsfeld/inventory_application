@@ -191,3 +191,19 @@ h1 {
   color: var(--color4);
   cursor: pointer;
 }
+
+@media (max-width: 600px) {
+  body {
+    padding: 3px;
+    font-size: 12px;
+  }
+
+  .display-youtubers {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .button-div button {
+    padding: 5px 10px;
+    border-radius: 20px;
+  }
+}
