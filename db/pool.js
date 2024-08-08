@@ -14,5 +14,5 @@ const { Pool } = require("pg");
 // Again, this should be read from an environment variable
 module.exports = new Pool({
   connectionString:
-    "postgres://gabrielsoares:Swvtjl1d0qhE@ep-muddy-rain-a4hveyr1.us-east-1.pg.koyeb.app/koyebdb",
+    "postgres://gabrielsoares:Swvtjl1d0qhE@ep-muddy-rain-a4hveyr1.us-east-1.pg.koyeb.app/koyebdb?sslmode=require",
 });
