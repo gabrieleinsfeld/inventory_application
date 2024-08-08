@@ -15,11 +15,13 @@
       <% }); %>
     </ul>
     <% } %>
-    <form action="/add/topic" method="POST">
-      <label for="topic_name">Topic name:</label>
-      <input type="text" name="topic_name" />
-      <button type="submit">Add Topic</button>
-    </form>
-    <button><a href="/">Main Page</a></button>
+    <div id="container-form">
+      <form action="/add/topic" method="POST">
+        <label for="topic_name">Topic name:</label>
+        <input type="text" name="topic_name" />
+        <button type="submit">Add Topic</button>
+      </form>
+      <button><a href="/">Main Page</a></button>
+    </div>
   </body>
 </html>
