@@ -20,12 +20,26 @@ async function addTopicPost(req, res) {
       errors: errors.array(),
     });
   }
-  await db.insertTopic(req.body.topic_name);
 
+  try {
+    await db.insertTopic(req.body.topic_name);
+    res.redirect("/");
+  } catch (error) {
+    res.render("addTopic", {
+      title: "Could not add Topic",
+      errors: [{ msg: error }],
+    });
+  }
+}
+
+async function deleteTopic(req, res) {
+  const id = req.params.id;
+  await db.deleteTopic(id);
   res.redirect("/");
 }
 
 module.exports = {
   addTopicGet,
   addTopicPost: [validateTopic, addTopicPost],
+  deleteTopic,
 };

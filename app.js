@@ -9,11 +9,13 @@ app.set("views", path.join(__dirname, "views"));
 const mainRouter = require("./routes/mainRouter");
 const addRouter = require("./routes/addRouter");
 const getRouter = require("./routes/getRouter");
+const deleteRouter = require("./routes/deleteRouter");
 
 app.use(express.urlencoded({ extended: true }));
 app.use("/", mainRouter);
 app.use("/add", addRouter);
 app.use("/get", getRouter);
+app.use("/delete", deleteRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Express app listening on port ${PORT}!`));

@@ -39,7 +39,7 @@ async function addYoutuberPost(req, res) {
     req.body.channel_followers
   );
 
-  res.send("hello");
+  res.redirect("/");
 }
 
 function addYoutuberGet(req, res) {

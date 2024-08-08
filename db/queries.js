@@ -8,11 +8,15 @@ async function insertYoutuber(
   topic_name,
   channel_followers
 ) {
+  const query0 = `INSERT INTO topics (topic_name)
+    VALUES ($1)
+    ON CONFLICT (topic_name) DO NOTHING;`;
+  await pool.query(query0, [topic_name]);
   //   Matches the name of the topic to the topic id
   const query = `
-    SELECT topics.id 
+    SELECT id 
     FROM topics
-    JOIN youtubers ON topics.id = topic_id WHERE topic_name LIKE $1;
+    WHERE topic_name = $1;
   `;
   const { rows } = await pool.query(query, [topic_name]);
 
@@ -74,6 +78,12 @@ async function getVideoByYoutuberName(youtuber_channel) {
   return rows;
 }
 
+async function deleteTopic(id) {
+  const query = `DELETE FROM topics WHERE id = $1;`;
+  await pool.query(query, [id]);
+  return;
+}
+
 module.exports = {
   insertYoutuber,
   insertTopic,
@@ -83,6 +93,7 @@ module.exports = {
   getVideos,
   getYoutubersByTopicId,
   getVideoByYoutuberName,
+  deleteTopic,
 };
 
 // INSERT INTO topics (topic_name) VALUES('Comedy');
